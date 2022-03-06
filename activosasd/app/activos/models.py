@@ -10,7 +10,8 @@ CHOICE_ESTADO = [
     ('en reparación', 'en reparación'),
     ('disponible', 'disponible'),
     ('asignado', 'asignado'),
-    ]
+]
+
 
 class TipoActivo(models.Model):
     nombre = models.CharField(max_length=100, blank=True, null=True)
@@ -24,6 +25,7 @@ class TipoActivo(models.Model):
     class Meta:
         db_table = 'tipoactivo'
 
+
 class Activos(models.Model):
     nombre = models.CharField(max_length=50, blank=True, null=True)
     descripcion = models.CharField(max_length=250, blank=True, null=True)
@@ -35,8 +37,8 @@ class Activos(models.Model):
     ancho = models.CharField(max_length=250, blank=True, null=True)
     largo = models.CharField(max_length=250, blank=True, null=True)
     valorcompra = models.CharField(max_length=250, blank=True, null=True)
-    fechacompra = models.CharField(max_length=250, blank=True, null=True)
-    fechabaja = models.CharField(max_length=250, blank=True, null=True)
+    fechacompra = models.DateTimeField(blank=True, null=True)
+    fechabaja = models.DateTimeField(blank=True, null=True)
     estadoactual = models.CharField(choices=CHOICE_ESTADO, max_length=20, blank=True, null=True)
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
     persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
