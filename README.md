@@ -1,5 +1,6 @@
 #### Prueba técnica ASD
 
+- Descargar base de datos backupASD
 - Importar la base de datos PostgreSQL 
 - clonar el repositorio -> https://github.com/Danielmc09/pruebaASD.git
 - crear un entorno virtual  -> virtualenv name_env
@@ -7,8 +8,9 @@
 - instalar librerias  ->  (env) pip install -r requirements.txt 
 - ejecutar el proyecto
 - cambiar la configuración de la base de datos en el archivo settings.py 
-- Crear migraciones manage.py makemigrations - manage.py migrate
 - Importar la collection en POSTMAN para realizar las pruebas
+- Para el create encuentra un ejemplo en la parter del body
+- Para el update encuentra un ejemplo en la parter del body
 
 - Puertos a utilizar que no deben estar ocupados o con los servicios locales apagados:
   - Django: 8000
