@@ -90,8 +90,6 @@ def query_for_serial(serial):
                         """.format(serial))
 
         for element in cursor.fetchall():
-            print(element)
-            print('Elementes')
             list_activos.append({
                 "id": element[0],
                 "nombre": element[1],
@@ -111,5 +109,4 @@ def query_for_serial(serial):
                 "area": element[15],
                 "tipo": element[16],
             })
-    print('LIST_ACTIVOS', list_activos)
     return list_activos
