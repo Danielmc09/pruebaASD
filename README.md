@@ -9,8 +9,8 @@
 - ejecutar el proyecto
 - cambiar la configuración de la base de datos en el archivo settings.py 
 - Importar la collection en POSTMAN para realizar las pruebas
-- Para el create encuentra un ejemplo en la parter del body
-- Para el update encuentra un ejemplo en la parter del body
+- Para el create encuentra un ejemplo en la apartado del body
+- Para el update encuentra un ejemplo en la apartado del body
 
 - Puertos a utilizar que no deben estar ocupados o con los servicios locales apagados:
   - Django: 8000
