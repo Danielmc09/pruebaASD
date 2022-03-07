@@ -1,14 +1,16 @@
-from datetime import datetime, date
+from datetime import datetime, date, timezone
 
 from rest_framework import generics, status
 from rest_framework.response import Response
 
 from .models import Activos, TipoActivo
 from .querys import query_for_tipo, query_for_fechacompra, query_for_serial
-from .serializers import ActivoSerializer
+from .serializers import ActivoSerializer, CreateActivoSerializer
+from ..area.models import Area
+from ..persona.models import Persona
 
 
-class ActivoViewSet(generics.ListAPIView):
+class ActivoListViewSet(generics.ListAPIView):
     serializer_class = ActivoSerializer
 
     def get_queryset(self):
@@ -16,7 +18,24 @@ class ActivoViewSet(generics.ListAPIView):
         return model.objects.all()
 
 
+class ActivoCreateViewSet(generics.CreateAPIView):
+    """
+    Crear un nuevo activo, validando la información
+    que se envia en la petición
+    """
+    serializer_class = CreateActivoSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'message': 'Activo creado con exito'}, status=status.HTTP_201_CREATED)
+
 class ListActivosTipoViewSet(generics.ListAPIView):
+    """
+    Listar todos los activos, filtrados por el tipo
+    de activo que se recibe en la petición
+    """
 
     def get(self, request):
         tipo_activo = self.request.GET.get('tipo_activo')
@@ -35,6 +54,10 @@ class ListActivosTipoViewSet(generics.ListAPIView):
 
 
 class ListActivosFechaCompraViewSet(generics.ListAPIView):
+    """
+    Listar todos los activos, filtrados por la fecha
+    que se recibe en la petición
+    """
 
     def get(self, request):
         fecha_compra = self.request.GET.get('fecha_compra')
@@ -56,6 +79,10 @@ class ListActivosFechaCompraViewSet(generics.ListAPIView):
 
 
 class ListActivosSerialViewSet(generics.ListAPIView):
+    """
+    Listar todos los activos, filtrados por el serial
+    que se recibe en la petición
+    """
 
     def get(self, request):
         serial = self.request.GET.get('serial')
@@ -71,4 +98,3 @@ class ListActivosSerialViewSet(generics.ListAPIView):
                 'activos_asosiados_a_el_serial': 'Busqueda sin resultados'
             }
             return Response(data=queryset, status=status.HTTP_404_NOT_FOUND)
-
