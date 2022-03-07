@@ -8,6 +8,7 @@
 - ejecutar el proyecto
 - cambiar la configuración de la base de datos en el archivo settings.py 
 - Crear migraciones manage.py makemigrations - manage.py migrate
+- Importar la collection en POSTMAN para realizar las pruebas
 
 - Puertos a utilizar que no deben estar ocupados o con los servicios locales apagados:
   - Django: 8000
