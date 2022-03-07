@@ -5,12 +5,13 @@ from rest_framework.response import Response
 
 from .models import Activos, TipoActivo
 from .querys import query_for_tipo, query_for_fechacompra, query_for_serial
-from .serializers import ActivoSerializer, CreateActivoSerializer
-from ..area.models import Area
-from ..persona.models import Persona
+from .serializers import ActivoSerializer, CreateActivoSerializer, UpdateActivoSerializer
 
 
 class ActivoListViewSet(generics.ListAPIView):
+    """
+    Listar todos los activos existentes
+    """
     serializer_class = ActivoSerializer
 
     def get_queryset(self):
@@ -30,6 +31,24 @@ class ActivoCreateViewSet(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'message': 'Activo creado con exito'}, status=status.HTTP_201_CREATED)
+
+
+class ActivoUpdateViewSet(generics.UpdateAPIView):
+    """
+    Actualizar un activo, validando la información
+    que se envia en la petición
+    """
+    serializer_class = UpdateActivoSerializer
+    queryset = Activos.objects.all()
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.serializer_class(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'message': 'Activo actualizado con éxito'}, status=status.HTTP_201_CREATED)
+
 
 class ListActivosTipoViewSet(generics.ListAPIView):
     """
